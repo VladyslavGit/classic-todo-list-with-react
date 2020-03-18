@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import shortid from "shortid";
+import shortid from "shortid";
 import TaskEditor from "./taskEditor/TaskEditor";
 import TaskFilter from "./taskFilter/TaskFilter";
 import TaskList from "./taskList";
@@ -11,7 +11,11 @@ const containerStyles = {
   marginRight: "auto"
 };
 
-const filterTasks = (task, filter) => {};
+const filterTasks = (tasks, filter) => {
+  return tasks.filter(task =>
+    task.text.toLowerCase().includes(filter.toLowerCase())
+  );
+};
 
 class App extends Component {
   state = {
@@ -19,17 +23,53 @@ class App extends Component {
     filter: ""
   };
 
-  // addTask = e => {
-  //   return {};
-  // };
+  componentDidMount() {
+    const persistedTasks = localStorage.getItem("tasks");
 
-  // addTask()
+    if (persistedTasks) {
+      const tasks = JSON.parse(persistedTasks);
 
-  // changeFilter = e => {
-  //   return{};
-  // };
+      this.setState({ tasks });
+    }
+  }
 
-  // changeFilter()
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+
+    if (prevState.tasks !== tasks) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }
+
+  changeFilter = e => {
+    this.setState({ filter: e.target.value });
+  };
+
+  addTask = task => {
+    const taskToAdd = {
+      ...task,
+      id: shortid.generate(),
+      completed: false
+    };
+
+    this.setState(state => ({
+      tasks: [...state.tasks, taskToAdd]
+    }));
+  };
+
+  deleteTask = id => {
+    this.setState(state => ({
+      tasks: state.tasks.filter(task => task.id !== id)
+    }));
+  };
+
+  updateCompleted = id => {
+    this.setState(state => ({
+      tasks: state.tasks.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    }));
+  };
 
   render() {
     const { tasks, filter } = this.state;
@@ -43,7 +83,6 @@ class App extends Component {
           items={filteredTasks}
           onDeleteTask={this.deleteTask}
           onUpateCompleted={this.updateCompleted}
-          onUpdatePriority={this.updatePriority}
         />
       </div>
     );
