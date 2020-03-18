@@ -71,6 +71,14 @@ class App extends Component {
     }));
   };
 
+  updatePriority = (id, priority) => {
+    this.setState(state => ({
+      tasks: state.tasks.map(task =>
+        task.id === id ? { ...task, priority } : task
+      )
+    }));
+  };
+
   render() {
     const { tasks, filter } = this.state;
     const filteredTasks = filterTasks(tasks, filter);
@@ -83,6 +91,7 @@ class App extends Component {
           items={filteredTasks}
           onDeleteTask={this.deleteTask}
           onUpateCompleted={this.updateCompleted}
+          onUpdatePriority={this.updatePriority}
         />
       </div>
     );
