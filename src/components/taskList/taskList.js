@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Task from "../Task/Task";
+import Task from "../task/Task";
 import styles from "./TaskList.module.css";
 
 const TaskList = ({

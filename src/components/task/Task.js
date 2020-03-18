@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PrioritySelector from "../PrioritySelector/PrioritySelector";
+import PrioritySelector from "../prioritySelector/PrioritySelector";
 import Priority from "../../utils/Priority";
 import styles from "./Task.module.css";
 
