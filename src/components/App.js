@@ -85,7 +85,6 @@ class App extends Component {
     return (
       <div style={containerStyles}>
         <TaskEditor onAddTask={this.addTask} />
-        <hr />
         <TaskFilter value={filter} onChangeFilter={this.changeFilter} />
         <TaskList
           items={filteredTasks}

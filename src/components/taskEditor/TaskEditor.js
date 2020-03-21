@@ -37,26 +37,29 @@ export default class TaskEditor extends Component {
     const { text, priority } = this.state;
 
     return (
-      <form className={styles.form} onSubmit={this.handleSubmit}>
-        <input
-          className={styles.input}
-          type="text"
-          name="text"
-          value={text}
-          onChange={this.handleChange}
-          placeholder="Enter task content..."
-        />
-        <label className={styles.label}>
-          Select task priority:
-          <PrioritySelector
-            options={options}
-            value={priority}
+      <>
+        <form className={styles.form} onSubmit={this.handleSubmit}>
+          <input
+            className={styles.input}
+            type="text"
+            name="text"
+            value={text}
             onChange={this.handleChange}
+            placeholder="Enter task content..."
           />
-        </label>
+          <label className={styles.label}>
+            Select task priority:
+            <PrioritySelector
+              options={options}
+              value={priority}
+              onChange={this.handleChange}
+            />
+          </label>
 
-        <button type="submit">Create</button>
-      </form>
+          <button type="submit">Create</button>
+        </form>
+        <hr />
+      </>
     );
   }
 }
